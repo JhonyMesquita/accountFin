@@ -1,11 +1,11 @@
-#API GraphQL com MongoDB - Documentação
-###API GraphQL que permite verificar saldo, depositar valores, sacar valores e lida com erros de saldo insuficiente. A API utiliza um banco de dados MongoDB para armazenar informações de conta e saldo.
+# API GraphQL com MongoDB - Documentação
+### API GraphQL que permite verificar saldo, depositar valores, sacar valores e lida com erros de saldo insuficiente. A API utiliza um banco de dados MongoDB para armazenar informações de conta e saldo.
 
-##Requisitos
+## Requisitos
 -Node.js
 -MongoDB
 
-##Instalação
+## Instalação
 + terminal: git clone https://github.com/JhonyMesquita/accountFin
 + terminal: cd repositório
 + terminal: npm install
@@ -20,7 +20,7 @@
     "saldo": 1000,
   }
   
-###saldo:
+### saldo:
 ```
 request:
     query {
@@ -35,7 +35,7 @@ response:
       }
     }
 ```
-###depositarValor
+### depositar
 ```
 request:
   mutation {
@@ -55,7 +55,7 @@ response:
     }
   }
 ```
-###sacar - valor abaixo do saldo
+### sacar - valor abaixo do saldo
 ```
 request:
   mutation {
@@ -76,7 +76,7 @@ response:
     }
   }
 ```
-###sacar - valor acima do saldo
+### sacar - valor acima do saldo
 ```
 request:
   mutation {
@@ -101,5 +101,5 @@ response:
   }
 ```
 
-##Testes unitários
+## Testes unitários
 + npm run test
