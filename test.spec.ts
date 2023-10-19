@@ -33,42 +33,6 @@ describe('Check Account', () => {
     expect(res.data.saldo).toBe(1000);
     expect(ContaSchema.findOne).toHaveBeenCalledWith({ conta: 12345 });
   });
-
-  it('Must create a new account with initial balance', async () => {
-    const input = {
-      conta: 12345,
-      valor: 1000,
-    };
-
-    const mockConta = {
-      conta: input.conta,
-      saldo: input.valor,
-    };
-
-    const schema = await buildSchema({
-      resolvers: [ContaResolver],
-    });
-
-    const server = new ApolloServer({ schema });
-
-    const { mutate } = createTestClient(server as any);
-
-    ContaSchema.create = jest.fn().mockResolvedValue(mockConta);
-    
-    const CREATE_CONTA_MUTATION = `
-      mutation {
-        createConta(data: { conta: 12345, valor: 1000 }) {
-          conta
-          saldo
-        }
-      }
-    `;
-
-    const res = await mutate({ mutation: CREATE_CONTA_MUTATION });
-
-    expect(res.data.createConta).toEqual(mockConta);
-    expect(ContaSchema.create).toHaveBeenCalledWith(mockConta);
-  });
   
   it('Must deposit an amount into the existing account', async () => {
     const existingConta = {
@@ -97,7 +61,7 @@ describe('Check Account', () => {
   
     const DEPOSITAR_MUTATION = `
       mutation {
-        depositarValor(data: { conta: 12345, valor: 500 }) {
+        depositar(data: { conta: 12345, valor: 500 }) {
           conta
           saldo
         }
@@ -106,7 +70,7 @@ describe('Check Account', () => {
   
     const res = await mutate({ mutation: DEPOSITAR_MUTATION });
   
-    expect(res.data.depositarValor).toEqual(expectedConta);
+    expect(res.data.depositar).toEqual(expectedConta);
     expect(ContaSchema.findOne).toHaveBeenCalledWith({ conta: 12345 });
     // expect(ContaSchema.findByIdAndUpdate).toHaveBeenCalledWith(expectedConta);
   }, 10000);
@@ -136,7 +100,7 @@ describe('Check Account', () => {
   
     const SACAR_MUTATION = `
       mutation {
-        sacarValor(data: { conta: 12345, valor: 500 }) {
+        sacar(data: { conta: 12345, valor: 500 }) {
           conta
           saldo
         }
@@ -144,7 +108,7 @@ describe('Check Account', () => {
     `;
   
     const res = await mutate({ mutation: SACAR_MUTATION });
-    expect(res.data.sacarValor).toEqual(expectedConta);
+    expect(res.data.sacar).toEqual(expectedConta);
     expect(ContaSchema.findOne).toHaveBeenCalledWith({ conta: 12345 });
   }, 10000);
 
@@ -173,7 +137,7 @@ describe('Check Account', () => {
   
     const SACAR_MUTATION = `
       mutation {
-        sacarValor(data: { conta: 12345, valor: 1500 }) {
+        sacar(data: { conta: 12345, valor: 1500 }) {
           conta
           saldo
         }

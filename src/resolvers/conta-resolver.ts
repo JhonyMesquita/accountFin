@@ -19,22 +19,8 @@ export class ContaResolver {
     
   }
 
-  // @Mutation(() => Conta)
-  // async createConta(@Arg('data') data: ContaInput) {
-  //   try {
-  //     const conta = {
-  //       conta: data.conta,
-  //       saldo: data.valor
-  //     }
-  //     await ContaSchema.create(conta)
-  //     return conta;
-  //   } catch(e) {
-  //     throw new Error()
-  //   }
-  // }
-
   @Mutation(() => Conta)
-  async depositarValor(@Arg('data') data: ContaInput) {
+  async depositar(@Arg('data') data: ContaInput) {
     try {
       const { conta, valor } = data
       const item: Conta | any = await ContaSchema.findOne({conta: conta})
@@ -54,7 +40,7 @@ export class ContaResolver {
   }
 
   @Mutation(() => Conta)
-  async sacarValor(@Arg('data') data: ContaInput) {
+  async sacar(@Arg('data') data: ContaInput) {
     try {
       const { conta, valor } = data
       const item: Conta | any = await ContaSchema.findOne({conta: conta})
