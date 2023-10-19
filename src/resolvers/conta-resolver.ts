@@ -19,55 +19,58 @@ export class ContaResolver {
     
   }
 
+  // @Mutation(() => Conta)
+  // async createConta(@Arg('data') data: ContaInput) {
+  //   try {
+  //     const conta = {
+  //       conta: data.conta,
+  //       saldo: data.valor
+  //     }
+  //     await ContaSchema.create(conta)
+  //     return conta;
+  //   } catch(e) {
+  //     throw new Error()
+  //   }
+  // }
+
   @Mutation(() => Conta)
-  async createConta(@Arg('data') data: ContaInput) {
+  async depositarValor(@Arg('data') data: ContaInput) {
     try {
-      const conta = {
-        conta: data.conta,
-        saldo: data.valor
+      const { conta, valor } = data
+      const item: Conta | any = await ContaSchema.findOne({conta: conta})
+      const novoSaldo = item.saldo + valor
+      const dados = {
+        conta: conta,
+        saldo: novoSaldo
       }
-      await ContaSchema.create(conta)
-      return conta;
+      if (item instanceof ContaSchema) {
+        item.saldo = novoSaldo
+        item.save()
+      }
+      return dados
     } catch(e) {
-      console.log('--------e', e)
+      throw new Error()
     }
-    
   }
 
   @Mutation(() => Conta)
-  async depositar(@Arg('data') data: ContaInput) {
-    const { conta, valor } = data
-    const item = await ContaSchema.findOne({conta: conta})
-    let dados = {}  
-    if (item){
-      item.saldo += valor
-      item.save()
-      dados = {
+  async sacarValor(@Arg('data') data: ContaInput) {
+    try {
+      const { conta, valor } = data
+      const item: Conta | any = await ContaSchema.findOne({conta: conta})
+      const novoSaldo = item.saldo > valor ? item.saldo - valor : 0
+      let dados = {
         conta: conta,
-        saldo: item.saldo
+        saldo: novoSaldo != 0 ? novoSaldo : item.saldo
       }
-    }
-    if (!item) throw new Error('Conta não encontrada!')
-    
-    return dados
-  }
-
-  @Mutation(() => Conta)
-  async sacar(@Arg('data') data: ContaInput) {
-    const { conta, valor } = data
-    const item = await ContaSchema.findOne({conta: conta})
-    let dados = {}
-    if (item) {
-      if (item.saldo < valor) throw new Error('Saldo insuficiente') 
-      item.saldo -= valor
-      item.save()
-      dados = {
-        conta: conta,
-        saldo: item.saldo
+      if (novoSaldo == 0) throw new Error('Saldo insuficiente')
+      if (item instanceof ContaSchema) {
+        item.saldo = novoSaldo
+        item.save()
       }
+      return dados
+    } catch(e) {
+      throw new Error('Saldo insuficiente');
     }
-    if (!item) throw new Error('Conta não encontrada!')
-    return dados
   }
-  
 }

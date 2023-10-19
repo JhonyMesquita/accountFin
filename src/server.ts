@@ -8,8 +8,7 @@ import path from 'node:path';
 
 async function bootstrap() {
   const schema = await buildSchema({
-    resolvers: [ContaResolver],
-    emitSchemaFile: path.resolve(__dirname, 'schemas.gql')
+    resolvers: [ContaResolver]
   })
 
   const server = new ApolloServer({
@@ -18,8 +17,8 @@ async function bootstrap() {
 
   const { url } = await server.listen()
   
-  console.log(`HTTP SERVER IS RUNNING ON ${url}`)
+  console.log(`🚀🚀🚀HTTP SERVER IS RUNNING ON ${url}`)
 }
-bootstrap()
+export default bootstrap()
 
 
