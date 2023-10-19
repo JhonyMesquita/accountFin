@@ -21,23 +21,30 @@
   }
   
 ###saldo:
+```
 request:
     query {
       saldo(conta: 123)
     }
+```
+```
 response:
     {
       "data": {
         "saldo": 1000
       }
     }
+```
 ###depositarValor
+```
 request:
   mutation {
         depositar(conta: 123, valor: 200) {
           conta
           saldo
         }
+```
+```
 response:
   {
     "data": {
@@ -47,7 +54,9 @@ response:
       }
     }
   }
+```
 ###sacar - valor abaixo do saldo
+```
 request:
   mutation {
     sacar(conta: 123, valor: 600) {
@@ -55,6 +64,8 @@ request:
       saldo
     }
   }
+```
+```
 response:
   {
     "data": {
@@ -64,7 +75,9 @@ response:
       }
     }
   }
+```
 ###sacar - valor acima do saldo
+```
 request:
   mutation {
     sacar(conta: 123, valor: 600) {
@@ -72,6 +85,8 @@ request:
       saldo
     }
   }
+```
+```
 response:
   {
     "errors": [
@@ -84,6 +99,7 @@ response:
           }
       }
   }
+```
 
 ##Testes unitários
 + npm run test
