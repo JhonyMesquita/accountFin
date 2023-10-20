@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { ApolloServer } from 'apollo-server';
 import { buildSchema } from 'type-graphql';
 import { ContaResolver } from "./resolvers/conta-resolver";
-import ContaSchema  from './dtos/schemas/ContaSchema';
+import ContaSchema  from './schemas/ContaSchema';
 import "./connection";
 
 async function firstRecord() {

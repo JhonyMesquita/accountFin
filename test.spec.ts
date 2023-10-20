@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server';
 import { createTestClient } from 'apollo-server-testing';
 import { buildSchema } from 'type-graphql';
 import { ContaResolver } from './src/resolvers/conta-resolver'; // Adjust the path
-import ContaSchema from './src/dtos/schemas/ContaSchema'; // Adjust the path
+import ContaSchema from './src/schemas/ContaSchema'; // Adjust the path
 
 describe('Check Account', () => {
   it('should return saldo for a valid account', async () => {

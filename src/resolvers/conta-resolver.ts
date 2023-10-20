@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AccountInput } from './../dtos/inputs/Account-input';
 import { ContaInput } from "../dtos/inputs/conta-input";
 import { Conta } from "../dtos/models/conta-model";
-import ContaSchema from "../dtos/schemas/ContaSchema";
+import ContaSchema from "../schemas/ContaSchema";
 
 @Resolver(Conta)
 export class ContaResolver {
