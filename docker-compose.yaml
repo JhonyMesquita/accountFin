@@ -1,0 +1,21 @@
+version: "3.8"
+ 
+services:
+  app:
+    depends_on:
+      - mongodb
+    build: .
+    env_file: .env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+ 
+  mongodb:
+    image: mongo:4.4.25
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASS
+    ports:
+      - 27017:27017
+ 
+volumes:
+  db:

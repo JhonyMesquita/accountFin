@@ -1,16 +1,15 @@
-import mongoose, { ConnectOptions, mongo } from "mongoose";
-
-// const uri = process.env.MONGODB_URI as string;
-// mongoose.connect(uri)
-//   .then(() => {
-//     console.log('CONECTADO AO BANCO DE DADOS')
-//   })
-//   .catch((err) => {
-//     console.error('ERRO AO CONECTAR AO BANCO DE DADOS' + err);
-//   })
-
-mongoose.connect("mongodb://localhost:27017").then(() => {
-  console.log('✅ CONECTADO AO BANCO DE DADOS ✅')
-}).catch((err) => {
-  console.error('⛔ Erro AO CONECTAR AO BANCO DE DADOS' + err)
-})
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+ 
+dotenv.config();
+ 
+const uri = `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}` as string;
+ 
+console.log(uri)
+ 
+mongoose.connect(uri)
+  .then(() => {
+    console.log('✅ CONECTADO AO BANCO DE DADOS ✅')
+  }).catch((err) => {
+    console.error('⛔ Erro AO CONECTAR AO BANCO DE DADOS' + err)
+  })

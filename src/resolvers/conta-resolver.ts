@@ -15,8 +15,20 @@ export class ContaResolver {
       return saldo
     }
     if (!item) throw new Error('Conta não encontrada!')
+  }
 
-    
+  @Mutation(() => Conta)
+  async createConta(@Arg('data') data: ContaInput) {
+    try {
+      const conta = {
+        conta: data.conta,
+        saldo: data.valor
+      }
+      await ContaSchema.create(conta)
+      return conta;
+    } catch(e) {
+      throw new Error()
+    }
   }
 
   @Mutation(() => Conta)

@@ -25,7 +25,6 @@ async function firstRecord() {
 }
 
 async function bootstrap() {
-  await firstRecord()
   const schema = await buildSchema({
     resolvers: [ContaResolver]
   })
@@ -37,6 +36,7 @@ async function bootstrap() {
   const { url } = await server.listen()
   
   console.log(`🚀🚀🚀 HTTP SERVER IS RUNNING ON 🚀🚀🚀 ${url}`)
+  await firstRecord()
 }
 
 export default bootstrap()

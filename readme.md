@@ -6,11 +6,10 @@
 -MongoDB
 
 ## Instalação
-+ terminal: git clone https://github.com/JhonyMesquita/accountFin
-+ terminal: cd repositório
-+ terminal: npm install
-+ configure o MongoDB - no arquivo connection.ts - mongoose.connect("url_do_seu_MongoDB")
-+ terminal: npm run
++ git clone https://github.com/JhonyMesquita/accountFin
++ cd accountFin
+## Rodando com docker
++ docker-compose up
 + API deve estar disponível no http://localhost:4000/
 
 ##Utilização
@@ -19,13 +18,20 @@
     "conta": 123,
     "saldo": 1000,
   }
-  
+- Realize as querys e pela interface disponibilizada pelo servidor
 ### saldo:
 ```
 request:
-    query {
-      saldo(conta: 123)
+  Operations:
+    query Query($data: AccountInput!) {
+      saldo(data: $data)
     }
+  Variables:
+  {
+    "data": {
+      "conta": 123
+    }
+  }
 ```
 ```
 response:
@@ -38,11 +44,20 @@ response:
 ### depositar
 ```
 request:
-  mutation {
-        depositar(conta: 123, valor: 200) {
-          conta
-          saldo
-        }
+  Operations:
+    mutation Depositar($data: ContaInput!) {
+      depositar(data: $data) {
+        conta
+        saldo
+      }
+    }
+  Variables:
+    {
+    "data": {
+      "conta": 123,
+      "valor": 200
+    }
+  }
 ```
 ```
 response:
@@ -58,12 +73,20 @@ response:
 ### sacar - valor abaixo do saldo
 ```
 request:
-  mutation {
-    sacar(conta: 123, valor: 600) {
-      conta
-      saldo
+  Operation:
+    mutation Sacar($data: ContaInput!) {
+      sacar(data: $data) {
+        conta
+        saldo
+      }
     }
-  }
+  Variables:
+    {
+      "data": {
+        "conta": 123,
+        "valor": 100
+      }
+    }
 ```
 ```
 response:
@@ -71,7 +94,7 @@ response:
     "data": {
       "sacar": {
         "conta": 123,
-        "saldo": 600
+        "saldo": 1100
       }
     }
   }
@@ -79,27 +102,63 @@ response:
 ### sacar - valor acima do saldo
 ```
 request:
-  mutation {
-    sacar(conta: 123, valor: 600) {
-      conta
-      saldo
+Operation:
+    mutation Sacar($data: ContaInput!) {
+      sacar(data: $data) {
+        conta
+        saldo
+      }
     }
-  }
+  Variables:
+    {
+      "data": {
+        "conta": 123,
+        "valor": 1200
+      }
+    }
 ```
 ```
 response:
-  {
-    "errors": [
-      {
-        "message": "Saldo insuficiente",
-        "locations": [
+  "errors": [
+    {
+      "message": "Saldo insuficiente",
+      "locations": [
           {
             "line": 6,
             "column": 3
           }
+       ]
+    }   
+   ]
+```
+### createConta 
+```
+request:
+  Operation:
+    mutation CreateConta($data: ContaInput!) {
+      createConta(data: $data) {
+        conta
+        saldo
       }
+    }
+  Variables:
+    {
+      "data": {
+        "conta": 1234,
+        "valor": 2000
+      }
+    }
+```
+```
+response:
+  {
+    "data": {
+      "createConta": {
+        "conta": 1234,
+        "saldo": 2000
+      }
+    }
   }
 ```
-
 ## Testes unitários
 + npm run test
