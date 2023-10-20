@@ -25,7 +25,7 @@ export class ContaResolver {
       })
       return conta;
     } catch(e) {
-      throw new Error()
+      return e
     }
   }
 
@@ -47,7 +47,7 @@ export class ContaResolver {
 
       return dados
     } catch(e) {
-      throw new Error()
+      return e
     }
   }
 
@@ -74,7 +74,7 @@ export class ContaResolver {
       }
       return dados
     } catch(e) {
-      throw new Error('Saldo insuficiente');
+      return e
     }
   }
 }
