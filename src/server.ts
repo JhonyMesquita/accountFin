@@ -2,22 +2,23 @@ import "reflect-metadata";
 import { ApolloServer } from 'apollo-server';
 import { buildSchema } from 'type-graphql';
 import { ContaResolver } from "./resolvers/conta-resolver";
-import ContaSchema  from './schemas/ContaSchema';
+import ContaModel  from './model/ContaModel';
 import "./connection";
+import path from 'node:path';
 
 async function firstRecord() {
   const contaInicial = {
     conta: 123,
     saldo: 1000
   } 
-  const exist = await ContaSchema.findOne({conta:contaInicial.conta})
+  const exist = await ContaModel.findOne({conta:contaInicial.conta})
   if (exist) {
     console.log('👌 Dado inicial já existente em banco 👌')
     return
   }
 
   try {
-    await ContaSchema.create(contaInicial)
+    await ContaModel.create(contaInicial)
     console.log('✨ Conta inicial inserida com sucesso! ✨')
   } catch(e) {
     console.error('❌ Erro ao inserir conta inicial: ❌', e)
@@ -26,7 +27,8 @@ async function firstRecord() {
 
 async function bootstrap() {
   const schema = await buildSchema({
-    resolvers: [ContaResolver]
+    resolvers: [ContaResolver],
+    emitSchemaFile: path.resolve(__dirname, 'schema.gql')
   })
 
   const server = new ApolloServer({

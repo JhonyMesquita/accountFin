@@ -5,9 +5,9 @@ type Conta = {
   saldo: number
 };
 
-const ContaSchema = new Schema({
+const ContaModel = new Schema({
   conta: Number,
   saldo: Number
 });
 
-export default mongoose.model<Conta>("Conta", ContaSchema);
+export default mongoose.model<Conta>("Conta", ContaModel);
