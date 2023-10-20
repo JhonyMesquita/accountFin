@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { AccountInput } from './../dtos/inputs/Account-input';
 import { ContaInput } from "../dtos/inputs/conta-input";
-import { Conta } from "../dtos/models/conta-model";
+import { Conta } from "../dtos/objectTypes/conta-types";
 import ContaSchema from "../schemas/ContaSchema";
 
 @Resolver(Conta)
