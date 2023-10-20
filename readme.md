@@ -2,14 +2,15 @@
 ### API GraphQL que permite verificar saldo, depositar valores, sacar valores e lida com erros de saldo insuficiente. A API utiliza um banco de dados MongoDB para armazenar informações de conta e saldo.
 
 ## Requisitos
--Node.js
--MongoDB
+- Node.js
+- MongoDB (docker-compose gera o container)
 
 ## Instalação
-+ git clone https://github.com/JhonyMesquita/accountFin
-+ cd accountFin
++ terminal: git clone https://github.com/JhonyMesquita/accountFin
++ terminal: cd accountFin
++ disponível um .env-example (renomeie para .env) 
 ## Rodando com docker
-+ docker-compose up
++ terminal: docker-compose up
 + API deve estar disponível no http://localhost:4000/
 
 ##Utilização
@@ -18,7 +19,7 @@
     "conta": 123,
     "saldo": 1000,
   }
-- Realize as querys e pela interface disponibilizada pelo servidor
+- Realize as querys pela interface disponibilizada pelo servidor
 ### saldo:
 ```
 request:
